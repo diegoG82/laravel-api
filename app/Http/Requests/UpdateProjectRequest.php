@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -15,22 +17,33 @@ class UpdateProjectRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|same:title',
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    if ($value !== Str::slug($this->input('title'), '-')) {
+                        $fail('The :attribute must match the title.');
+                    }
+                },
+            ],
             'content' => 'required|string|max:255',
         ];
     }
-
+    
     public function messages()
     {
         return [
-            'title.required' => 'Title Required.',
+            'title.required' => 'Title is required.',
             'title.string' => 'Title must be a string.',
-            'title.max' => 'Il titolo cant exceed :max caratteri.',
-            'slug.required' => 'Slug required.',
+            'title.max' => 'The title cannot exceed :max characters.',
+            'slug.required' => 'Slug is required.',
             'slug.string' => 'Slug must be a string.',
-            'content.required' => 'Content required.',
-            'content.max' => 'Content cant exceed :max caratteri.', 
-            
+            'slug.max' => 'The slug cannot exceed :max characters.',
+            'slug.same' => 'The :attribute must match the title.',
+            'content.required' => 'Content is required.',
+            'content.max' => 'The content cannot exceed :max characters.',
         ];
     }
+    
 }
