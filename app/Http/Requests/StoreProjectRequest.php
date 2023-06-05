@@ -24,13 +24,13 @@ class StoreProjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Il titolo è obbligatorio.',
-            'title.string' => 'Il titolo deve essere una stringa.',
-            'title.max' => 'Il titolo non può superare :max caratteri.',
-            'slug.required' => 'La descrizione è obbligatoria.',
-            'slug.string' => 'La descrizione deve essere una stringa.',
-            'content.string' => 'Il campo thumb deve essere una stringa.',
-            'content.max' => 'Il campo thumb non può superare :max caratteri.',
+            'title.required' => 'Title Required.',
+            'title.string' => 'Title must be a string.',
+            'title.max' => 'Il titolo cant exceed :max caratteri.',
+            'slug.required' => 'Slug required.',
+            'slug.string' => 'Slug must be a string.',
+            'content.required' => 'Content required.',
+            'content.max' => 'Content cant exceed :max caratteri.',
             
         ];
     }

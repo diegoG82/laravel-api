@@ -6,4 +6,6 @@
         {{ $project->slug }}
     </div>
     <p class="mt-4">{{ $project->content }}</p>
+    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
+
 @endsection

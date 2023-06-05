@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1 class="text-center">La lista dei Progetti</h1>
+    <h1 class="text-center">PROJECT LIST</h1>
     <div class="text-center m-4">
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
@@ -11,10 +11,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Titolo</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="col-2">ID</th>
+                <th scope="col" class="col-2">TITLE</th>
+                <th scope="col" class="col-2">SLUG</th>
+                <th scope="col" class="col-4">CONTENT</th>
+                <th scope="col" class="col-2">ACTION</th>   
+
             </tr>
         </thead>
         <tbody>
