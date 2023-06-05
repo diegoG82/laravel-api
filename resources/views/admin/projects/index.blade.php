@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1 class="text-center">PROJECT LIST</h1>
+    <h1 class="text-center mt-2">PROJECT LIST</h1>
     <div class="text-center m-4">
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
