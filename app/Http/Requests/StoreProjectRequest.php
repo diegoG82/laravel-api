@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
+// use Illuminate\Support\Str;
     
 
 class StoreProjectRequest extends FormRequest
@@ -16,18 +19,8 @@ class StoreProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                function ($attribute, $value, $fail) {
-                    if ($value !== Str::slug($this->input('title'), '-')) {
-                        $fail('The :attribute must match the title.');
-                    }
-                },
-            ],
-            'content' => 'required|string|max:255',
+            'title'=>['required', Rule::unique('projects')],
+            'content' => 'nullable'
         ];
     }
     

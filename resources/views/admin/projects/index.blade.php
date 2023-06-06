@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+        @include('partials.session_message')
     <h1 class="text-center mt-2">PROJECT LIST</h1>
     <div class="text-center m-4">
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
@@ -15,7 +16,7 @@
                 <th scope="col" class="col-2">TITLE</th>
                 <th scope="col" class="col-2">SLUG</th>
                 <th scope="col" class="col-4">CONTENT</th>
-                <th scope="col" class="col-2">ACTION</th>   
+                <th scope="col" class="col-2">ACTION</th>
 
             </tr>
         </thead>
@@ -30,13 +31,15 @@
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->id) }}">
+                        <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->slug) }}">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-                        <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->id) }}"
+
+                        <form class="d-inline-block" action="{{ route('admin.projects.destroy', $project->slug) }}"
                             method="POST">
-                            @method('DELETE')
                             @csrf
+                            @method('DELETE')
+
                             <button type="submit" class="btn btn-danger btn-delete" onclick="return confirmDelete()">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
@@ -55,7 +58,7 @@
     {{-- Script for delete popup --}}
     <script>
         function confirmDelete() {
-            return confirm('Are you sure you want to delete this comic?');
+            return confirm('Are you sure you want to delete this Project?');
         }
     </script>
 @endsection

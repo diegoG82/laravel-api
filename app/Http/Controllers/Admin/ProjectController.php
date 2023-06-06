@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use app\Http\Controllers\Controller;
-use App\Models\Project;
-use Illuminate\Http\Request;
 use App\http\Requests\UpdateProjectRequest;
 use App\http\Requests\StoreProjectRequest;
+use App\Models\Project;
+use Illuminate\Http\Request;
+use illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -18,8 +19,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-      return view('admin.projects.index', compact('projects'));
-        
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -41,13 +41,12 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $data = $request->validated();
-
-        $project = new Project();
-        $project->title = $data['title'];
-        $project->slug = $data['slug'];
-        $project->content = $data['content'];
-        $project->save();
-        return redirect()->route('admin.projects.index');
+        $data['slug'] = Str::slug($data['title']);
+        // $project = new Project();
+        // $project->fill($data);
+        // $project->save();
+        $project = Project::create($data);
+        return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
     }
 
     /**
@@ -67,9 +66,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        $project = Project::findOrfail($id);
+        // $project = Project::findOrfail($id);
         return view('admin.projects.edit', compact('project'));
     }
 
@@ -80,13 +79,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, $id)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         $data = $request->validated();
-        $project = Project::findOrFail($id);
+        $data['slug'] = Str::slug($data['title']);
         $project->update($data);
-        return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato modificato con successo");
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -94,10 +94,10 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::findOrFail($id);
+       
         $project->delete();
-        return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
     }
 }

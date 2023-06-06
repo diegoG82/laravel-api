@@ -17,24 +17,13 @@
             </div>
 
             <div class="mb-3">
-                <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
-                    value="{{ old('slug') }}">
-                @error('slug')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="price" class="form-label">Content</label>
-                <input type="text" class="form-control @error('content') is-invalid @enderror" id="content"
-                    name="content" value="{{ old('content') }}">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content"
+                    name="content">{{ old('content') }}</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
-
 
             <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
             <button type="submit" class="btn btn-success">Create</button>

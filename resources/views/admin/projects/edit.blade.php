@@ -4,9 +4,10 @@
     <div class="container-fluid">
         <h2 class="text-center mt-4">EDIT PROJECT</h2>
 
-        <form action="{{ route('admin.projects.update', $project->id) }}" method="POST">
-            @method('PUT')
+        <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST">
             @csrf
+            @method('PUT')
+         
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -16,21 +17,17 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="description" class="form-label">Slug</label>
-                <textarea class="form-control @error('slug') is-invalid @enderror" name="slug" id="description" rows="3">{{ old('slug', $project->slug) }}</textarea>
-                @error('slug')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+         
 
             <div class="mb-3">
-                <label for="thumb" class="form-label">Content</label>
-                <input type="text" class="form-control @error('content') is-invalid @enderror" id="content" name="content" value="{{ old('content', $project->content) }}">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content"> {{ old('content', $project->content) }}"</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+
 
             
             <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
