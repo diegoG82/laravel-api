@@ -103,4 +103,4 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
     }
-}
+}   

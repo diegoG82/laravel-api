@@ -55,18 +55,12 @@ class TypeController extends Controller
     //     return view('admin.typess.show', compact('type'));
     // }
 
-    
+
     public function show($slug)
-{
-    $type = Type::where('slug', $slug)->firstOrFail();
-    return view('admin.typess.show', compact('type'));
-}
-
-    
-
-
-
-
+    {
+        $type = Type::where('slug', $slug)->firstOrFail();
+        return view('admin.typess.show', compact('type'));
+    }
 
 
 
@@ -76,9 +70,14 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // public function edit($id)
+    // {
+    //     //
+    // }
+    public function edit($slug)
     {
-        //
+        $type = Type::where('slug', $slug)->firstOrFail();
+        return view('admin.typess.edit', compact('type'));
     }
 
     /**
@@ -88,10 +87,20 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+
+    public function update(Request $request, $slug)
     {
-        //
+        $type = Type::where('slug', $slug)->firstOrFail();
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        $type->name = $validatedData['name'];
+        $type->save();
+        return redirect()->route('admin.typess.index', $type->slug)->with('success', 'Type updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
