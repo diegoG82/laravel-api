@@ -5,7 +5,11 @@
     <div class="text-center ">
         {{ $project->slug }}
     </div>
-    <p class="mt-4">{{ $project->content }}</p>
+    <p class="mt-4 text-center">{{ $project->content }}</p>
+    <p class="mt-4 text-center">
+        {{ $project->type ? $project->type->name : 'No type available' }}
+    </p>
+    
     <div class="text-center">
         <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
     </div>
