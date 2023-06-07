@@ -6,6 +6,7 @@ use app\Http\Controllers\Controller;
 use App\http\Requests\UpdateProjectRequest;
 use App\http\Requests\StoreProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use illuminate\Support\Str;
 
@@ -29,7 +30,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -42,6 +44,7 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
+        $data['type_id'] = $request->input('type_id');
         // $project = new Project();
         // $project->fill($data);
         // $project->save();
@@ -68,8 +71,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        // $project = Project::findOrfail($id);
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**

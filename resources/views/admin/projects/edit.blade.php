@@ -27,6 +27,18 @@
                 @enderror
             </div>
 
+        
+
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select name="type_id" id="type" class="form-control">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" {{ $project->type_id == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
+
 
 
             

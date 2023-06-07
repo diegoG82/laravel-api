@@ -25,6 +25,17 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select name="type_id" id="type" class="form-control">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                </select>
+                
+            </div>
+            
+
             <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
             <button type="submit" class="btn btn-success">Create</button>
         </form>
