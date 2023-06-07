@@ -55,12 +55,14 @@ class TypeController extends Controller
     //     return view('admin.typess.show', compact('type'));
     // }
 
-    public function show(Type $type)
     
-    {
-        return view('admin.typess.show', compact('type'));
-    }
+    public function show($slug)
+{
+    $type = Type::where('slug', $slug)->firstOrFail();
+    return view('admin.typess.show', compact('type'));
+}
 
+    
 
 
 
