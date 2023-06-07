@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeIdToProjects extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddTypeIdToProjects extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->unsignedBigInteger('type_id')->nullable();
-
-            $table->foreign('type_id')->references('id')->on('types')->onDelete('set null');
+            //
         });
     }
 
@@ -28,9 +26,7 @@ class AddTypeIdToProjects extends Migration
     public function down()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign(['type_id']);
-            $table->dropColumn('type_id');
+            //
         });
     }
-}
-    
+};
