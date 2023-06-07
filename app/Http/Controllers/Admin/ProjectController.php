@@ -89,7 +89,7 @@ class ProjectController extends Controller
         $project->update($data);
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato modificato con successo");
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -99,7 +99,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-       
+
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
     }

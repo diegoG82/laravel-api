@@ -69,6 +69,13 @@
                                     <i class="fa-regular fa-folder-open"></i> PROJECTS
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.typess.index' ? 'bg-secondary' : '' }}"
+                                    href="{{ route('admin.typess.index') }}">
+                                    <i class="fa-solid fa-microchip"></i> TYPES
+                                </a>
+                            </li>
+                            
                         </ul>
 
 
