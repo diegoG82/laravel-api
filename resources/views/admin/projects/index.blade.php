@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-        @include('partials.session_message')
+    @include('partials.session_message')
     <h1 class="text-center mt-2">PROJECT LIST</h1>
     <div class="text-center m-4">
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
@@ -17,6 +17,7 @@
                 <th scope="col" class="col-2">SLUG</th>
                 <th scope="col" class="col-4">CONTENT</th>
                 <th scope="col" class="col-4">TYPE</th>
+                <th scope="col" class="col-4">TECH</th>
                 <th scope="col" class="col-2">ACTION</th>
 
             </tr>
@@ -31,6 +32,12 @@
                     <td>{{ $project->type->name ?? 'N/A' }}</td>
 
                     <td>
+                        @foreach ($project->technologies as $technology)
+                            {{ $technology->name }}
+                        @endforeach
+                    </td>
+
+                <td>
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success">
                             <i class="fa-solid fa-eye"></i>
                         </a>

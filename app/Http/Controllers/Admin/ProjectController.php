@@ -7,6 +7,7 @@ use App\http\Requests\UpdateProjectRequest;
 use App\http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use illuminate\Support\Str;
 
