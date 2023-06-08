@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
 use Illuminate\Support\Str;
+use App\Http\Requests\StoreTypeRequest;
+use App\http\Requests\UpdateTypeRequest;
 
 class TypeController extends Controller
 {
@@ -36,25 +38,20 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-      
+    public function store(StoreTypeRequest $request)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|max:255',
+    ]);
 
-        
-      
-            $validatedData = $request->validate([
-                'name' => 'required|max:255',
-            ]);
-        
-            $type = new Type();
-            $type->name = $validatedData['name'];
-            $type->slug = Str::slug($validatedData['name']); // Genera lo slug basato sul campo 'name'
-            $type->save();
-        
-            return redirect()->route('admin.typess.index')->with('success', 'Type created successfully');
-       
-        
-    }
+    $type = new Type();
+    $type->name = $validatedData['name'];
+    $type->slug = Str::slug($validatedData['name']); 
+    $type->save();
+
+    return redirect()->route('admin.typess.index')->with('success', 'Type created successfully');
+}
+
 
     /**
      * Display the specified resource.
@@ -85,7 +82,7 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(UpdateTypeRequest $request, Type $type)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',

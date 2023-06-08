@@ -9,6 +9,9 @@
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="text-center">
