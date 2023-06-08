@@ -24,8 +24,8 @@ class UpdateTechnologyRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Il nome è obbligatorio.',
-            'name.unique' => 'Il nome inserito è già utilizzato.',
+            'name.required' => 'Name required.',
+            'name.unique' => 'Name tech must be unique:',
         ];
     }
 }
