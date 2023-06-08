@@ -32,8 +32,12 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        $project = new Project(); 
+        return view('admin.projects.create', compact('types', 'technologies', 'project'));
     }
+    
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,16 +46,20 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreProjectRequest $request)
-    {
-        $data = $request->validated();
-        $data['slug'] = Str::slug($data['title']);
-        $data['type_id'] = $request->input('type_id');
-        // $project = new Project();
-        // $project->fill($data);
-        // $project->save();
-        $project = Project::create($data);
-        return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
+{
+    $data = $request->validated();
+    $data['slug'] = Str::slug($data['title']);
+    $data['type_id'] = $request->input('type_id');
+
+    $project = Project::create($data);
+
+    // Aggiungi le technologies associate
+    if ($request->has('technologies')) {
+        $project->technologies()->attach($request->input('technologies'));
     }
+
+    return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
+}
 
     /**
      * Display the specified resource.
@@ -73,7 +81,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -87,9 +96,19 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
+        
         $project->update($data);
+    
+      
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->input('technologies'));
+        } else {
+            $project->technologies()->detach();
+        }
+        
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato modificato con successo");
     }
+    
 
 
     /**
