@@ -18,9 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('content')->nullable();
-            ;
-            $table->unsignedBigInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('projects')->onDelete('set null');
             $table->timestamps();
         });
     }
