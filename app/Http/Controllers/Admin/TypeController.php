@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
-
-
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -28,7 +27,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.typess.create');
     }
 
     /**
@@ -39,44 +38,43 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+
+        
+      
+            $validatedData = $request->validate([
+                'name' => 'required|max:255',
+            ]);
+        
+            $type = new Type();
+            $type->name = $validatedData['name'];
+            $type->slug = Str::slug($validatedData['name']); // Genera lo slug basato sul campo 'name'
+            $type->save();
+        
+            return redirect()->route('admin.typess.index')->with('success', 'Type created successfully');
+       
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     *  @param  \App\Models\Type  $type  
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    //     public function show($id)
-    // {
-    //     $type = Type::findOrFail($id);
-    //     return view('admin.typess.show', compact('type'));
-    // }
-
-
-    public function show($slug)
+    public function show(Type $type)
     {
-        $type = Type::where('slug', $slug)->firstOrFail();
         return view('admin.typess.show', compact('type'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-    public function edit($slug)
+    public function edit(Type $type)
     {
-        $type = Type::where('slug', $slug)->firstOrFail();
         return view('admin.typess.edit', compact('type'));
     }
 
@@ -84,32 +82,30 @@ class TypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-
-
-    public function update(Request $request, $slug)
+    public function update(Request $request, Type $type)
     {
-        $type = Type::where('slug', $slug)->firstOrFail();
         $validatedData = $request->validate([
             'name' => 'required|max:255',
         ]);
 
         $type->name = $validatedData['name'];
         $type->save();
-        return redirect()->route('admin.typess.index', $type->slug)->with('success', 'Type updated successfully');
-    }
 
+        return redirect()->route('admin.typess.index')->with('success', "{$type->name} updated successfully");
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.typess.index')->with('success', "{$type->name} deleted successfully");
     }
 }
