@@ -2,7 +2,7 @@
 
 @section('content')
     @include('partials.session_message')
-    <h1 class="text-center mt-2">PROJECT LIST</h1>
+    <h1 class="text-center mt-2 text-danger">PROJECT LIST</h1>
     <div class="text-center m-4">
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
@@ -10,15 +10,15 @@
 
 
     <table class="table">
-        <thead>
+        <thead class="text-danger">
             <tr>
                 <th scope="col" class="col-2">ID</th>
                 <th scope="col" class="col-2">TITLE</th>
                 <th scope="col" class="col-2">SLUG</th>
-                <th scope="col" class="col-4">CONTENT</th>
-                <th scope="col" class="col-4">TYPE</th>
-                <th scope="col" class="col-4">TECH</th>
-                <th scope="col" class="col-2">ACTION</th>
+                <th scope="col" class="col-5">CONTENT</th>
+                <th scope="col" class="col-5">TYPE</th>
+                <th scope="col" class="col-5">TECH</th>
+                <th scope="col " class="col-5">ACTION</th>
 
             </tr>
         </thead>
@@ -26,22 +26,22 @@
             @foreach ($projects as $project)
                 <tr>
                     <th scope="row">{{ $project->id }}</th>
-                    <td>{{ $project->title }}</td>
-                    <td>{{ $project->slug }}</td>
+                    <td class="text-success">{{ $project->title }}</td>
+                    <td class="text-success">{{ $project->slug }}</td>
                     <td>{{ $project->content }}</td>
-                    <td>{{ $project->type->name ?? 'N/A' }}</td>
+                    <td class="text-warning">{{ $project->type->name ?? 'N/A' }}</td>
 
-                    <td>
+                    <td class="text-primary">
                         @foreach ($project->technologies as $technology)
                             {{ $technology->name }}
                         @endforeach
                     </td>
 
                 <td>
-                        <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success">
+                        <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success m-2">
                             <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a class="btn btn-warning" href="{{ route('admin.projects.edit', $project->slug) }}">
+                        <a class="btn btn-warning m-2" href="{{ route('admin.projects.edit', $project->slug) }}">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
 
@@ -50,7 +50,7 @@
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger btn-delete" onclick="return confirmDelete()">
+                            <button type="submit" class="btn btn-danger btn-delete m-2  " onclick="return confirmDelete()">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>

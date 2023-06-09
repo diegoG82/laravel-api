@@ -7,7 +7,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <div class="text-center">
+    <div class="text-center m-4">
         <a href="{{ route('admin.typess.create') }}" class="btn btn-outline-success">Create NewType</a>
     </div>
 
