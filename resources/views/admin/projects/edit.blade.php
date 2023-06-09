@@ -53,17 +53,18 @@
                 </div> --}}
 
 
-            <div class="form-group">
-                <label for="technologies">Technologies</label>
-                @foreach ($technologies as $technology)
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="technologies[]"
-                            id="technology{{ $technology->id }}" value="{{ $technology->id }}"
-                            {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
-                        <label class="form-check-label"
-                            for="technology{{ $technology->id }}">{{ $technology->name }}</label>
-                    </div>
-                @endforeach
+                <div class="form-group">
+                    <label for="technologies">Technologies</label>
+                    @foreach ($technologies as $technology)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="technologies[]"
+                                id="technology{{ $technology->id }}" value="{{ $technology->id }}"
+                                {{ in_array($technology->id, old('technologies', $project->technologies->pluck('id')->toArray())) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                    
             </div>
 
 
