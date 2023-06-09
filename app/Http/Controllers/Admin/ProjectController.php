@@ -103,6 +103,7 @@ class ProjectController extends Controller
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->input('technologies'));
         } else {
+            // rimuovi le tecnologie
             $project->technologies()->detach();
         }
         
