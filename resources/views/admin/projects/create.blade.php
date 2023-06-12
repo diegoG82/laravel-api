@@ -69,28 +69,4 @@
     </div>
 @endsection
 
-<script>
-    // Leggi il file selezionato e visualizza l'anteprima
-    function readImage(input) {
-        if (input.files && input.files[0]) {
-            let reader = new FileReader();
-
-            reader.onload = function(e) {
-                let imagePreview = document.getElementById('image-preview');
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    // Aggiungi un listener all'input del file
-    document.addEventListener('DOMContentLoaded', function() {
-        let imageInput = document.getElementById('image');
-
-        imageInput.addEventListener('change', function() {
-            readImage(this);
-        });
-    });
-</script>
+ "done "
