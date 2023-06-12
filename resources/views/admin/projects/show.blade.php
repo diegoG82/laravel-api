@@ -13,7 +13,7 @@
             </div>
         @else
             <div class="p-5 bg-secondary text-white">
-                no image
+                NO IMAGE
             </div>
         @endif
 

@@ -11,7 +11,6 @@ use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Http\File;
 
 class ProjectController extends Controller
 {
@@ -113,15 +112,13 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
 
-        if ($request->hasFile ('image' )){
-            if ($project->image){
-                storage::delete($project->image);
+        if ($request->hasFile('new_image')) {
+            if ($project->image) {
+                Storage::delete($project->image);
             }
-            $path = Storage::disk( 'public') ->put('project_ images', $request ->image);
-            $data['image'] =$path;
-
+            $path = $request->file('new_image')->store('project_images', 'public');
+            $data['image'] = $path;
         }
-
 
         $project->update($data);
 
@@ -146,9 +143,8 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         if ($project->image) {
-            Storage::delete ($project ->image) ;
+            Storage::delete($project->image);
         }
-
 
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
