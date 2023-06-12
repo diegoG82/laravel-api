@@ -7,7 +7,7 @@
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
 
-    <form action=" {{ route('admin.projects.index') }}" method="GET"' class-"my-2" 
+    <form action=" {{ route('admin.projects.index') }}" method="GET"' class="my-2" 
     @csrf
     <label for="type">
       TYPE:</label>
