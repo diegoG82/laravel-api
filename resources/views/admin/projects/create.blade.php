@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <h2 class="text-center mt-4 text-white">CREATE NEW PROJECT</h2>
 
-            <form action="{{ route('admin.projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="mb-3">
@@ -15,6 +15,12 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+
 
                 <div class="mb-3">
                     <label for="content" class="form-label text-white">Content</label>
