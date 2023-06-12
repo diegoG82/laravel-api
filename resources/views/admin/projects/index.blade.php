@@ -7,6 +7,17 @@
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
 
+    <form action=" {{ route('admin.projects.index') }}" method="GET"' class-"my-2" @csrf <label for="type">
+        Tecnology</label>
+        <select name="type_id" id="type">
+            <option value="">All</option>
+            @foreach ($types as $type)
+                <option value=" {{ $type->id }}">{{ $type->name }}</option>
+            @endforeach
+        </select>
+        <button type-"submit">Cerca</button>
+    </form>
+
 
 
     <table class="table">
@@ -37,7 +48,7 @@
                         @endforeach
                     </td>
 
-                <td>
+                    <td>
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success m-2">
                             <i class="fa-solid fa-eye"></i>
                         </a>
@@ -64,6 +75,9 @@
 
         </tbody>
     </table>
+    <div> 
+      {{ $projects->links() }} 
+    </div>
 
     {{-- Script for delete popup --}}
     <script>

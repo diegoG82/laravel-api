@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+
 use illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -18,11 +19,21 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        $types = Type::paginate(10); // Modifica questa linea
+    
+        $data = $request->all();
+    
+        if ($request->has('type_id') && !is_null($data['type_id'])) {
+            $projects = Project::where('type_id', $data['type_id'])->paginate(10);
+        } else {
+            $projects = Project::paginate(10);
+        }
+    
+        return view('admin.projects.index', compact('projects', 'types'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +44,10 @@ class ProjectController extends Controller
     {
         $types = Type::all();
         $technologies = Technology::all();
-        $project = new Project(); 
+        $project = new Project();
         return view('admin.projects.create', compact('types', 'technologies', 'project'));
     }
-    
+
 
 
     /**
@@ -46,20 +57,20 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreProjectRequest $request)
-{
-    $data = $request->validated();
-    $data['slug'] = Str::slug($data['title']);
-    $data['type_id'] = $request->input('type_id');
+    {
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['title']);
+        $data['type_id'] = $request->input('type_id');
 
-    $project = Project::create($data);
+        $project = Project::create($data);
 
-    // Aggiungi le technologies associate
-    if ($request->has('technologies')) {
-        $project->technologies()->attach($request->input('technologies'));
+        // Aggiungi le technologies associate
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($request->input('technologies'));
+        }
+
+        return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
     }
-
-    return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato creato");
-}
 
     /**
      * Display the specified resource.
@@ -96,20 +107,20 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
-        
+
         $project->update($data);
-    
-      
+
+
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->input('technologies'));
         } else {
             // rimuovi le tecnologie
             $project->technologies()->detach();
         }
-        
+
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato modificato con successo");
     }
-    
+
 
 
     /**
@@ -124,4 +135,4 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
     }
-}   
+}
