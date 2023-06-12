@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h2 class="text-center mt-4">EDIT PROJECT</h2>
+        <h2 class="text-center text-white mt-4">EDIT PROJECT</h2>
 
         <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST">
             @csrf
@@ -10,7 +10,7 @@
 
 
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
+                <label for="title" class="form-label text-white">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
                     value="{{ old('title', $project->title) }}">
                 @error('title')
@@ -21,7 +21,7 @@
 
 
             <div class="mb-3">
-                <label for="content" class="form-label">Content</label>
+                <label for="content" class="form-label text-white">Content</label>
                 <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content"> {{ old('content', $project->content) }}"</textarea>
                 @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -31,8 +31,8 @@
 
 
             <div class="form-group">
-                <label for="type">Type</label>
-                <select name="type_id" id="type" class="form-control">
+                <label for="type" class="text-white">Type</label>
+                <select name="type_id" id="type" class="form-control ">
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
                             {{ $type->name }}
@@ -54,17 +54,17 @@
 
 
                 <div class="form-group">
-                    <label for="technologies">Technologies</label>
+                    <label for="technologies" class="text-white mt-4">Technologies</label>
                     @foreach ($technologies as $technology)
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="technologies[]"
+                            <input class="form-check-input " type="checkbox" name="technologies[]"
                                 id="technology{{ $technology->id }}" value="{{ $technology->id }}"
                                 {{ in_array($technology->id, old('technologies', $project->technologies->pluck('id')->toArray())) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
+                            <label class="form-check-label text-white" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
                         </div>
                     @endforeach
                 </div>
-                    
+
             </div>
 
 
