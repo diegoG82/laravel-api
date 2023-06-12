@@ -7,15 +7,17 @@
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
 
-    <form action=" {{ route('admin.projects.index') }}" method="GET"' class-"my-2" @csrf <label for="type">
-        Tecnology</label>
+    <form action=" {{ route('admin.projects.index') }}" method="GET"' class-"my-2" 
+    @csrf
+    <label for="type">
+      TYPE:</label>
         <select name="type_id" id="type">
             <option value="">All</option>
             @foreach ($types as $type)
                 <option value=" {{ $type->id }}">{{ $type->name }}</option>
             @endforeach
         </select>
-        <button type-"submit">Cerca</button>
+        <button type-"submit">SEARCH</button>
     </form>
 
 
