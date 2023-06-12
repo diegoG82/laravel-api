@@ -19,6 +19,25 @@
             </div>
 
 
+            <div class="mb-3">
+                <label for="image" class="form-label w-20">Existing Image</label>
+                @if ($project->image)
+                    <div class="mb-2">
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}"
+                            class="img-thumbnail">
+                    </div>
+                @else
+                    <div class="text-muted">No existing image</div>
+                @endif
+            </div>
+
+            <div class="mb-3">
+                <label for="new_image" class="form-label">New Image</label>
+                <input type="file" class="form-control" id="new_image" name="new_image">
+            </div>
+
+
+
 
             <div class="mb-3">
                 <label for="content" class="form-label text-white">Content</label>
@@ -40,9 +59,9 @@
                     @endforeach
                 </select>
             </div>
-            
 
-            {{-- Versione con la selezione a cascata e pluck--}}
+
+            {{-- Versione con la selezione a cascata e pluck --}}
             {{-- <div class="form-group">
                     <label for="technologies">Technologies</label>
                     <select name="technologies[]" id="technologies" class="form-control" multiple>
@@ -53,28 +72,29 @@
                 </div> --}}
 
 
-                <div class="form-group">
-                    <label for="technologies" class="text-white mt-4">Technologies</label>
-                    @foreach ($technologies as $technology)
-                        <div class="form-check">
-                            <input class="form-check-input " type="checkbox" name="technologies[]"
-                                id="technology{{ $technology->id }}" value="{{ $technology->id }}"
-                                {{ in_array($technology->id, old('technologies', $project->technologies->pluck('id')->toArray())) ? 'checked' : '' }}>
-                            <label class="form-check-label text-white" for="technology{{ $technology->id }}">{{ $technology->name }}</label>
-                        </div>
-                    @endforeach
-                </div>
-
+            <div class="form-group">
+                <label for="technologies" class="text-white mt-4">Technologies</label>
+                @foreach ($technologies as $technology)
+                    <div class="form-check">
+                        <input class="form-check-input " type="checkbox" name="technologies[]"
+                            id="technology{{ $technology->id }}" value="{{ $technology->id }}"
+                            {{ in_array($technology->id, old('technologies', $project->technologies->pluck('id')->toArray())) ? 'checked' : '' }}>
+                        <label class="form-check-label text-white"
+                            for="technology{{ $technology->id }}">{{ $technology->name }}</label>
+                    </div>
+                @endforeach
             </div>
 
+    </div>
 
 
 
 
 
 
-            <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
-            <button type="submit" class="btn btn-warning">Update</button>
-        </form>
+
+    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary m-2  ">Turn Back</a>
+    <button type="submit" class="btn btn-warning">Update</button>
+    </form>
     </div>
 @endsection
