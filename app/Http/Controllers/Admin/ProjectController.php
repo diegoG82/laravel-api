@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use app\Http\Controllers\Controller;
-use App\http\Requests\UpdateProjectRequest;
-use App\http\Requests\StoreProjectRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use Illuminate\Http\Request;
-
-use illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Http\File;
 
 class ProjectController extends Controller
 {
@@ -21,16 +22,15 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $types = Type::paginate(10); // Modifica questa linea
-    
+        $types = Type::paginate(10);
         $data = $request->all();
-    
+
         if ($request->has('type_id') && !is_null($data['type_id'])) {
             $projects = Project::where('type_id', $data['type_id'])->paginate(10);
         } else {
             $projects = Project::paginate(10);
         }
-    
+
         return view('admin.projects.index', compact('projects', 'types'));
     }
     
@@ -61,6 +61,11 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
         $data['type_id'] = $request->input('type_id');
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('project_images', 'public');
+            $data['image'] = $imagePath;
+        }
 
         $project = Project::create($data);
 
@@ -108,8 +113,17 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
 
-        $project->update($data);
+        if ($request->hasFile ('image' )){
+            if ($project->image){
+                storage::delete($project->image);
+            }
+            $path = Storage::disk( 'public') ->put('project_ images', $request ->image);
+            $data['image'] =$path;
 
+        }
+
+
+        $project->update($data);
 
         if ($request->has('technologies')) {
             $project->technologies()->sync($request->input('technologies'));
@@ -131,6 +145,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) {
+            Storage::delete ($project ->image) ;
+        }
+
 
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "{$project->title} è stato cancellato");
