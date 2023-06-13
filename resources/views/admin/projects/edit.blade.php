@@ -23,13 +23,12 @@
                 <label for="image" class="form-label text-white">Current image</label>
                 @if ($project->image)
                     <div class="w-25 mx-auto mt-4">
-                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" class="img-fluid">
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}" class="img-fluid" id="image-preview">
                     </div>
                 @else
                     <div class="text-muted">No existing image</div>
                 @endif
             </div>
-
 
             <div class="mb-3">
                 <label for="new_image" class="form-label text-white">New Image</label>
@@ -81,3 +80,29 @@
     </form>
     </div>
 @endsection
+
+<script>
+    // read file and show preview
+    function readImage(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                let imagePreview = document.getElementById('image-preview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+   // add eventlistener to file preview
+    document.addEventListener('DOMContentLoaded', function() {
+        let imageInput = document.getElementById('new_image');
+
+        imageInput.addEventListener('change', function() {
+            readImage(this);
+        });
+    });
+</script>
