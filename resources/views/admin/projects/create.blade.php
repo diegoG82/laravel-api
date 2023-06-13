@@ -16,6 +16,7 @@
                 @enderror
             </div>
 
+
             <div class="mb-3">
                 <label for="image" class="form-label text-white">Image</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
@@ -28,6 +29,8 @@
                         style="display: none; max-height: 200px;">
                 </div>
             </div>
+
+                   
 
             <div class="mb-3">
                 <label for="content" class="form-label text-white">Content</label>

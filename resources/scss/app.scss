@@ -1,32 +1,82 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
-.background_style{
-   
-  
-        background-color: #556;
-        background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a), linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
-        background-size: 80px 140px;
-        background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-
-
+.background_style {
+    background-color: #556;
+    background-image: linear-gradient(
+            30deg,
+            #445 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #445 87.5%,
+            #445
+        ),
+        linear-gradient(
+            150deg,
+            #445 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #445 87.5%,
+            #445
+        ),
+        linear-gradient(
+            30deg,
+            #445 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #445 87.5%,
+            #445
+        ),
+        linear-gradient(
+            150deg,
+            #445 12%,
+            transparent 12.5%,
+            transparent 87%,
+            #445 87.5%,
+            #445
+        ),
+        linear-gradient(
+            60deg,
+            #99a 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #99a 75%,
+            #99a
+        ),
+        linear-gradient(
+            60deg,
+            #99a 25%,
+            transparent 25.5%,
+            transparent 75%,
+            #99a 75%,
+            #99a
+        );
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
-
-   .dash_main{
-    border:15px solid black;
+.dash_main {
+    border: 15px solid black;
     background: url(/resources/img/retro.jpg);
     background-size: cover;
     height: 800px;
-   }
+}
 
-   .techs{
-    width:300px;
+.techs {
+    width: 300px;
     margin: 0 auto;
-   }
+}
 
+.show_proj {
+    border: 10px solid cornflowerblue;
+    margin-top: 200px;
+}
 
-   .show_proj{
-        border: 10px solid cornflowerblue;
-        margin-top:200px;
-   }
+.small {
+    font-size: 2rem;
+ 
+}
 
+.search_form{
+        width:300px;
+        border: 5px solid green;
+}

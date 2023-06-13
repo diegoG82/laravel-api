@@ -7,18 +7,19 @@
         <a class="btn btn-success text-center" href="{{ route('admin.projects.create') }}">NEW PROJECT</a>
     </div>
 
-    <form action=" {{ route('admin.projects.index') }}" method="GET"' class="my-2" 
-    @csrf
-    <label for="type">
-      TYPE:</label>
-        <select name="type_id" id="type">
-            <option value="">All</option>
-            @foreach ($types as $type)
-                <option value=" {{ $type->id }}">{{ $type->name }}</option>
-            @endforeach
-        </select>
-        <button type-"submit">SEARCH</button>
-    </form>
+    <div class="search_form mb-4 mt-4 text-white">
+        <form action=" {{ route('admin.projects.index') }}" method="GET"' class="my-2" @csrf <label for="type">
+            TYPE:</label>
+            <select name="type_id" id="type">
+                <option value="">All</option>
+                @foreach ($types as $type)
+                    <option value=" {{ $type->id }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-success">SEARCH</button>
+        </form>
+    </div>
+   
 
 
 
@@ -77,8 +78,8 @@
 
         </tbody>
     </table>
-    <div> 
-      {{ $projects->links() }} 
+    <div>
+        {{ $projects->links() }}
     </div>
 
     {{-- Script for delete popup --}}
