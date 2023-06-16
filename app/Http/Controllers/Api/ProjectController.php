@@ -31,7 +31,7 @@ public function show($slug) {
         return response()->json([
             'success' => false,
             'error' => 'No Project found'
-        ]);
+        ])->setStatusCode(404);
     }
 }
 }
