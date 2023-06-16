@@ -8,23 +8,23 @@ use Illuminate\Http\Request;
    
 class ProjectController extends Controller
 {
-    public function index(Request $request) {
+
+        public function index(Request $request) {
         // Se nel request ho Type_id
         if ($request->has('type_id')) {
-            //  prendo i type in base al tipo
-            $projects = Project::with(['type'])->where('type_id', $request->type_id)->paginate(5);
+            // prendo i progetti con il tipo corrispondente e le tecnologie associate
+            $projects = Project::with(['type', 'technologies'])->where('type_id', $request->type_id)->paginate(5);
         } else {
-            //Altrimenti 
-            //  prendo tutti i tipi
-            $projects = Project::with(['type'])->paginate(5);
+            // prendo tutti i progetti con i rispettivi tipi e tecnologie associate
+            $projects = Project::with(['type', 'technologies'])->paginate(5);
         }
+    
         return response()->json([
             'success' => true,
             'results' => $projects
         ]);
     }
-        
-
+    
 
 
 
